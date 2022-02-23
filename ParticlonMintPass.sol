@@ -70,6 +70,9 @@ contract ParticlonMintPass is ERC1155, Ownable {
     }
 
     /// @notice Withdraws funds to the team Gnosis Safe Multisig wallet
+    /// @dev EDIT: Berlin fork requires `accessList` to send this transaction without running out of gas. See EIP-2929 and EIP-2930.
+    /// @notice EDIT: For ordinary wallets this is fine, in this case with it was a small oversight that adds complexity
+    /// @notice EDIT: Advised method of ETH transfer is using `call`!
     function withdrawETH() external onlyOwner {
         payable(0xDbaD7CbcA084DFf4E93B0f365978362aD8cc0A35).transfer(
             address(this).balance
